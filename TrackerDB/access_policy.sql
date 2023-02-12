@@ -1,0 +1,4 @@
+﻿CREATE TABLE [dbo].[access_policy]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY
+)

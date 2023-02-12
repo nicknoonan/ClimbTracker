@@ -1,0 +1,4 @@
+﻿CREATE TABLE [dbo].[region]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY
+)

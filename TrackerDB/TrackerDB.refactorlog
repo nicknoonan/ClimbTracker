@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="8d56b1fa-0508-4056-8c8d-245cdf032cb5" ChangeDateTime="02/05/2023 17:56:31">
+    <Property Name="ElementName" Value="[dbo].[media].[region]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[media]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="region_id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="039a0c17-c361-41f9-9211-9c95c13aaa54" ChangeDateTime="02/05/2023 17:56:38">
+    <Property Name="ElementName" Value="[dbo].[media].[route]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[media]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="route_id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="95b7e838-3cbc-423a-9d70-c2341327ddb5" ChangeDateTime="02/05/2023 17:59:33">
+    <Property Name="ElementName" Value="[dbo].[route].[region]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[route]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="region_id" />
+  </Operation>
+</Operations>
