@@ -6,13 +6,13 @@ namespace TrackerApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HealthController : ControllerBase
+    public class SqlHealthController : ControllerBase
     {
-        private readonly ILogger<HealthController> _logger;
+        private readonly ILogger<SqlHealthController> _logger;
         private readonly IConfiguration _config;
         private readonly ISqlToken _sqlTokenService;
 
-        public HealthController(ILogger<HealthController> logger, IConfiguration config, ISqlToken sqlTokenService)
+        public SqlHealthController(ILogger<SqlHealthController> logger, IConfiguration config, ISqlToken sqlTokenService)
         {
             _logger = logger;
             _config = config;

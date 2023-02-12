@@ -13,7 +13,7 @@ namespace TrackerApi
 {
     public static class TDatabaseHelper<T>
     {
-        public static async Task<T?> ExecuteQuery(IConfiguration config, ILogger log, ISqlToken sqlTokenService, string query, Dictionary<string, string> query_params, Func<SqlDataReader, T> reader_handler)
+        public static async Task<T?> ExecuteQuery(IConfiguration config, ILogger log, ISqlToken sqlTokenService, string query, Dictionary<string, string>? query_params, Func<SqlDataReader, T> reader_handler)
         {
             var connection_string = config.GetValue<string>("CTDBConnectionString");
             using (SqlConnection connection = new SqlConnection(connection_string))
