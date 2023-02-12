@@ -14,7 +14,7 @@ if (builder.Environment.IsProduction())
     builder.Configuration.AddAzureKeyVault(
         new Uri($"http://{builder.Configuration["AZURE_KEY_VAULT_NAME"]}.vault.azure.net/"),
         new DefaultAzureCredential(),
-        new PrefixKeyVaultSecretManager("0001"));
+        new PrefixKeyVaultSecretManager(builder.Configuration["AZURE_KEY_VAULT_SECRET_PREFIX"]));
 }
 else if (builder.Environment.IsDevelopment())
 {
