@@ -23,7 +23,7 @@ namespace TrackerApi.Controllers
             var kv_name = _config.GetValue<string>("AZURE_KEY_VAULT_NAME");
             var Kv_prefix = _config.GetValue<string>("AZURE_KEY_VAULT_SECRET_PREFIX");
             var test = _config.GetValue<string>("testsecret");
-            return String.Format("AZURE_KEY_VAULT_NAME: \"{0}\"\ntestsecret: \"{1}\"", kv_name, test);
+            return "debug endpoint.";
         }
     }
 }
