@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 if (builder.Environment.IsProduction())
 {
     builder.Configuration.AddAzureKeyVault(
-        new Uri($"http://{builder.Configuration["AZURE_KEY_VAULT_NAME"]}.vault.azure.net/"),
+        new Uri($"https://{builder.Configuration["AZURE_KEY_VAULT_NAME"]}.vault.azure.net/"),
         new DefaultAzureCredential(),
         new PrefixKeyVaultSecretManager(builder.Configuration["AZURE_KEY_VAULT_SECRET_PREFIX"]));
 }
