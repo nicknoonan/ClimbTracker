@@ -46,7 +46,7 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_RBAC_CREDENTIALS }}
-          
+
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
@@ -56,6 +56,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'nn-app-sbx-ctapi'
+          app-name: 'nn-app-sbx-ct-api'
           slot-name: 'Production'
           package: .
