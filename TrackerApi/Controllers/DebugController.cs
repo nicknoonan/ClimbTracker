@@ -20,7 +20,7 @@ namespace TrackerApi.Controllers
         [HttpGet(Name = "GetDebug")]
         public string Get()
         {
-            var str = String.Format("db connectrion string : \"{0}\"", _config.GetValue<string>("CTDBConnectionString"));
+            var str = String.Format("debug");
             return str;
         }
     }

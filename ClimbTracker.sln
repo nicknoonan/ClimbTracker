@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClimbTracker", "ClimbTracke
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackerApi", "TrackerApi\TrackerApi.csproj", "{3DBE2556-A2FE-4932-ADC9-7BB956040152}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseHelper", "DatabaseHelper\DatabaseHelper.csproj", "{E4D8085A-1185-475F-A1CF-1563E11BF3ED}"
-EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TrackerDB", "TrackerDB\TrackerDB.sqlproj", "{785B616C-BB37-4C76-8EF5-1E20AA865EBC}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{3DBE2556-A2FE-4932-ADC9-7BB956040152}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DBE2556-A2FE-4932-ADC9-7BB956040152}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DBE2556-A2FE-4932-ADC9-7BB956040152}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E4D8085A-1185-475F-A1CF-1563E11BF3ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4D8085A-1185-475F-A1CF-1563E11BF3ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4D8085A-1185-475F-A1CF-1563E11BF3ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4D8085A-1185-475F-A1CF-1563E11BF3ED}.Release|Any CPU.Build.0 = Release|Any CPU
 		{785B616C-BB37-4C76-8EF5-1E20AA865EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{785B616C-BB37-4C76-8EF5-1E20AA865EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{785B616C-BB37-4C76-8EF5-1E20AA865EBC}.Debug|Any CPU.Deploy.0 = Debug|Any CPU

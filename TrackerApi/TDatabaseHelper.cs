@@ -9,18 +9,16 @@ using Microsoft.Extensions.Logging;
 using Azure.Identity;
 using Azure.Core;
 
-namespace DatabaseHelper
+namespace TrackerApi
 {
     public static class TDatabaseHelper<T>
     {
-        public static async Task<T?> ExecuteQuery(IConfiguration config, ILogger log, string query, Dictionary<string, string> query_params, Func<SqlDataReader, T> reader_handler)
+        public static async Task<T?> ExecuteQuery(IConfiguration config, ILogger log, ISqlToken sqlTokenService, string query, Dictionary<string, string> query_params, Func<SqlDataReader, T> reader_handler)
         {
             var connection_string = config.GetValue<string>("CTDBConnectionString");
-            var credential = new Azure.Identity.DefaultAzureCredential();
-            var token = credential.GetToken(new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default" }));
             using (SqlConnection connection = new SqlConnection(connection_string))
             {
-                connection.AccessToken = token.Token;
+                connection.AccessToken = sqlTokenService.GetToken();
                 connection.Open();
                 SqlCommand command = new SqlCommand(query, connection);
                 if (query_params != null)
