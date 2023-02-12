@@ -20,10 +20,8 @@ namespace TrackerApi.Controllers
         [HttpGet(Name = "GetDebug")]
         public string Get()
         {
-            var kv_name = _config.GetValue<string>("AZURE_KEY_VAULT_NAME");
-            var Kv_prefix = _config.GetValue<string>("AZURE_KEY_VAULT_SECRET_PREFIX");
-            var test = _config.GetValue<string>("testsecret");
-            return "debug endpoint.";
+            var str = String.Format("db connectrion string : \"{0}\"", _config.GetValue<string>("CTDBConnectionString"));
+            return str;
         }
     }
 }

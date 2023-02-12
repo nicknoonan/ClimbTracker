@@ -1,13 +1,15 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Data.SqlClient;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Microsoft.Data.SqlClient;
 
 namespace DatabaseHelper
 {
     public class DatabaseHelper
     {
-        public static async Task<int> ExecuteNonQuery(ILogger log, string query, Dictionary<string, string> query_params)
+        public static async Task<int> ExecuteNonQuery(IConfiguration config, ILogger log, string query, Dictionary<string, string> query_params)
         {
-            using (SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")))
+            var connection_string = config.GetValue<string>("CTDBConnectionString");
+            using (SqlConnection connection = new SqlConnection(connection_string))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand(query, connection);

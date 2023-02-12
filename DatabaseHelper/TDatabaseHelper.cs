@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace DatabaseHelper
 {
     public class TDatabaseHelper<T>
     {
-        public static async Task<T?> ExecuteQuery(ILogger log, string query, Dictionary<string, string> query_params, Func<SqlDataReader, T> reader_handler)
+        public static async Task<T?> ExecuteQuery(IConfiguration config, ILogger log, string query, Dictionary<string, string> query_params, Func<SqlDataReader, T> reader_handler)
         {
-            var connection_string = Environment.GetEnvironmentVariable("OPENAISBX_DB_CONNECTION_STRING");
-            /*log.LogInformation(String.Format("connecting to \"{0}\"", connection_string));*/
+            var connection_string = config.GetValue<string>("CTDBConnectionString");
             using (SqlConnection connection = new SqlConnection(connection_string))
             {
                 connection.Open();
