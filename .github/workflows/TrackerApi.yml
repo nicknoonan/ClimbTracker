@@ -56,7 +56,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'nn-app-sbx-ct'
+          app-name: 'nn-app-sbx-ctapi'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_25A4945B9C87498BA17E0AA44607BD25 }}
           package: .
