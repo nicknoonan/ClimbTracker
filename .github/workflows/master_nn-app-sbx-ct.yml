@@ -23,7 +23,7 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release ${{env.GITHUB_WORKSPACE}}/TrackerApi/TrackerApi.csproj
+        run: dotnet build --configuration Release ${{github.workspace}}/TrackerApi/TrackerApi.csproj
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/TrackerApi
