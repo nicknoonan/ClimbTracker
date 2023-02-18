@@ -11,9 +11,11 @@ namespace TrackerApi.Controllers
         private readonly ILogger<SqlHealthController> _logger;
         private readonly IConfiguration _config;
         private readonly ISqlToken _sqlTokenService;
+        private readonly IDatabaseHelper _databaseHelper;
 
-        public SqlHealthController(ILogger<SqlHealthController> logger, IConfiguration config, ISqlToken sqlTokenService)
+        public SqlHealthController(IDatabaseHelper databaseHelper, ILogger<SqlHealthController> logger, IConfiguration config, ISqlToken sqlTokenService)
         {
+            _databaseHelper = databaseHelper;
             _logger = logger;
             _config = config;
             _sqlTokenService = sqlTokenService;
@@ -22,16 +24,8 @@ namespace TrackerApi.Controllers
         [HttpGet(Name = "GetHealth")]
         public async Task<string> Get()
         {
-            var query = "select @@version as version";
-            var version = await TDatabaseHelper<string?>.ExecuteQuery(_config, _logger, _sqlTokenService, query, null, (reader) => {
-                var sqlversion = "";
-                while (reader.Read())
-                {
-                   sqlversion = reader["version"].ToString();
-                }
-                return sqlversion;
-            });
-            return version ?? "unable to get sql version";
+            string version = await _databaseHelper.CheckConnection();
+            return version;
         }
     }
 }

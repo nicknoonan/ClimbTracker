@@ -22,17 +22,17 @@ namespace TrackerApi
         }
         public string GetToken()
         {
-            SqlTokenModel token = new SqlTokenModel();
+            SqlTokenModel token;
 
             if (!cache.TryGetValue(token_cache_key, out token))
             {
-                token = this.GetNewToken();
+                token = GetNewToken();
                 var options = new MemoryCacheEntryOptions().SetAbsoluteExpiration(token.ExpiresOn);
                 cache.Set(token_cache_key, token, options);
             }
             return token.Token ?? "unable to fetch sql token";
         }
-        private SqlTokenModel GetNewToken()
+        private static SqlTokenModel GetNewToken()
         {
             SqlTokenModel sqlToken = new SqlTokenModel();
             var credential = new Azure.Identity.DefaultAzureCredential();
