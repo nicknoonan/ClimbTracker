@@ -10,21 +10,10 @@ using Azure.Identity;
 using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 
-namespace TrackerApi
+namespace TrackerApi.DatabaseHelper
 {
-    public interface IDatabaseHelper {
-        Task<TQueryResult> ExecuteQuery(string query, Dictionary<string, object>? query_params, Func<SqlDataReader, TQueryResult> reader_handler);
-        Task<int> ExecuteNonQuery(string query, Dictionary<string, object> query_params);
-        Task<string> CheckConnection();
-    }
-    public class TQueryResult
-    {
-        public object? result { get; set; }
-        public TQueryResult(object? result)
-        {
-            this.result = result;
-        }
-    }
+
+
     public class DatabaseHelper : IDatabaseHelper
     {
         private readonly IConfiguration _config;
@@ -35,11 +24,12 @@ namespace TrackerApi
             _config = config;
             _sqlTokenService = sqlTokenService;
         }
-        public async Task<string> CheckConnection()
+        public async Task<string> CheckConnectionAsync()
         {
             var connection_string = _config.GetValue<string>("CTDBConnectionString");
             var query = "select @@version as version";
-            var version = await ExecuteQuery(query, null, (reader) => {
+            var version = await ExecuteQuery(query, null, (reader) =>
+            {
                 var sqlversion = "";
                 while (reader.Read())
                 {

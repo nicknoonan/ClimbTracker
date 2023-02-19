@@ -1,38 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text;
+using TrackerApi.DatabaseHelper;
 
 namespace TrackerApi.CacheHelper
 {
-    public interface ICacheHelper 
-    {
-        public Task<bool> CheckConnectionAsync();
-        
-        /*byte[]? Get(string key);*/
 
-        
-        Task<byte[]?> GetAsync(string key, CancellationToken token = default(CancellationToken));
-
-        
-        /*void Set(string key, byte[] value, DistributedCacheEntryOptions options);*/
-
-        
-        Task SetAsync(string key, byte[] value, DateTimeOffset expires_at_time, CancellationToken token = default(CancellationToken));
-
-        /*void Refresh(string key);*/
-        
-        /*Task RefreshAsync(string key, CancellationToken token = default(CancellationToken));*/
-
-        /*void Remove(string key);*/
-
-        Task RemoveAsync(string key, CancellationToken token = default(CancellationToken));
-    }
 
     public class CacheHelper : ICacheHelper
     {
         private readonly ILogger<CacheHelper> _logger;
         private readonly IConfiguration _config;
         private readonly IDatabaseHelper _db;
+        private static readonly double _deafualt_retention_hours = 12;
         public CacheHelper(ILogger<CacheHelper> logger, IConfiguration configuration, IDatabaseHelper db)
         {
             _logger = logger;
@@ -96,9 +76,21 @@ namespace TrackerApi.CacheHelper
 
             await _db.ExecuteNonQuery(query, query_params);
         }
+        public async Task SetAsync(string key, byte[] value, CancellationToken token = default(CancellationToken))
+        {
+            DateTimeOffset expires_at_time = new DateTimeOffset(DateTime.UtcNow.AddHours(_deafualt_retention_hours));
+            await this.SetAsync(key, value, expires_at_time, token);
+        }
         public async Task RemoveAsync(string key, CancellationToken token = default(CancellationToken))
         {
-
+            string query = "delete from cache_store where Id = @key";
+            Dictionary<string, object> query_params = new Dictionary<string, object>(){{ "key", key }};
+            await _db.ExecuteNonQuery(query, query_params);
+        }
+        public async Task RemoveExpiredAsync(CancellationToken token = default(CancellationToken))
+        {
+            string query = "delete from cache_store where ExpiresAtTime < GETDATE()";
+            await _db.ExecuteNonQuery(query, null);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Abstractions;
+using TrackerApi.DatabaseHelper;
 
 namespace TrackerApi.Controllers
 {
@@ -24,7 +25,7 @@ namespace TrackerApi.Controllers
         [HttpGet(Name = "GetHealth")]
         public async Task<string> Get()
         {
-            string version = await _databaseHelper.CheckConnection();
+            string version = await _databaseHelper.CheckConnectionAsync();
             return version;
         }
     }
