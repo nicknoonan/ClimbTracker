@@ -13,7 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace TrackerApi
 {
     public interface IDatabaseHelper {
-        Task<TQueryResult> ExecuteQuery(string query, Dictionary<string, string>? query_params, Func<SqlDataReader, TQueryResult> reader_handler);
+        Task<TQueryResult> ExecuteQuery(string query, Dictionary<string, object>? query_params, Func<SqlDataReader, TQueryResult> reader_handler);
+        Task<int> ExecuteNonQuery(string query, Dictionary<string, object> query_params);
         Task<string> CheckConnection();
     }
     public class TQueryResult
@@ -50,7 +51,7 @@ namespace TrackerApi
             return (string)version_result;
         }
 
-        public async Task<TQueryResult> ExecuteQuery(string query, Dictionary<string, string>? query_params, Func<SqlDataReader, TQueryResult> reader_handler)
+        public async Task<TQueryResult> ExecuteQuery(string query, Dictionary<string, object>? query_params, Func<SqlDataReader, TQueryResult> reader_handler)
         {
             var connection_string = _config.GetValue<string>("CTDBConnectionString");
             using (SqlConnection connection = new SqlConnection(connection_string))
@@ -70,11 +71,12 @@ namespace TrackerApi
                 return handler_return;
             }
         }
-        public async Task<int> ExecuteNonQuery(string query, Dictionary<string, string> query_params)
+        public async Task<int> ExecuteNonQuery(string query, Dictionary<string, object> query_params)
         {
             var connection_string = _config.GetValue<string>("CTDBConnectionString");
             using (SqlConnection connection = new SqlConnection(connection_string))
             {
+                connection.AccessToken = _sqlTokenService.GetToken();
                 connection.Open();
                 SqlCommand command = new SqlCommand(query, connection);
                 if (query_params != null)

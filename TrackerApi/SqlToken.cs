@@ -1,11 +1,12 @@
 ﻿using Azure.Identity;
 using Microsoft.Extensions.Caching.Memory;
-
+using Microsoft.Extensions.Configuration;
 namespace TrackerApi
 {
     public interface ISqlToken
     {
         string GetToken();
+        public string GetConnectionString();
     }
     public class SqlTokenModel
     {
@@ -15,10 +16,17 @@ namespace TrackerApi
     public class SqlToken : ISqlToken
     {
         private readonly IMemoryCache cache;
-        private readonly string token_cache_key = "SQL_ACCESS_TOKEN";
-        public SqlToken(IMemoryCache cache)
+        private static readonly string token_cache_key = "SQL_ACCESS_TOKEN";
+        private readonly IConfiguration configuration;
+        public SqlToken(IMemoryCache cache, IConfiguration configuration)
         {
             this.cache = cache;
+            this.configuration = configuration;
+        }
+        public string GetConnectionString()
+        {
+            string connection_string = String.Format("{0};Access Token={1};", configuration.GetValue<string>("CTDBConnectionString"), this.GetToken());
+            return connection_string;
         }
         public string GetToken()
         {
