@@ -19,6 +19,7 @@ builder.Services.AddSingleton<ISqlToken, SqlToken>();
 builder.Services.AddTransient<IDatabaseHelper, DatabaseHelper>();
 builder.Services.AddTransient<ICacheHelper, CacheHelper>();
 builder.Services.AddHostedService<CacheCleanup>();
+
 //build app
 var app = builder.Build();
 
@@ -29,9 +30,9 @@ app.UseSwaggerUI();
 
 //install middlewear
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
+//map controllers
 app.MapControllers();
 
 //establish connection to db
@@ -50,5 +51,5 @@ else
     app.Logger.LogError("ERROR:SQL cache service unhealthy!");
 }
 
-
+//run application
 app.Run();

@@ -31,12 +31,11 @@ namespace TrackerApi.Controllers
             {
                 string key = String.Format("healthcheck{0}", i.ToString());
                 string value = String.Format("healthcheck{0}",i.ToString());
-                await _cacheHelper.SetAsync(key, Encoding.UTF8.GetBytes(value), new DateTimeOffset(DateTime.UtcNow.AddMinutes(1)));
+                await _cacheHelper.SetAsync(key, Encoding.UTF8.GetBytes(value));
                 byte[]? fetched_value = await _cacheHelper.GetAsync(key);
                 string check = (fetched_value == null) ? String.Format("unhealthy{0}",i.ToString()) : Encoding.UTF8.GetString(fetched_value);
                 list.Add(check);
             }
-
             return list;
         }
     }
